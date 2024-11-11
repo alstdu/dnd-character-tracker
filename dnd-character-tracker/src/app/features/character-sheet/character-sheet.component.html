@@ -1,0 +1,6 @@
+<div class="character-sheet">
+  <ng-container *ngIf="character$ | async as character">
+    <h2>{{ character.name }}</h2>
+    <a routerLink="/" class="back-link">Back to Selection</a>
+  </ng-container>
+</div> 

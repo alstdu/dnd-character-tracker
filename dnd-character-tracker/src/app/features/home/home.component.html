@@ -1,0 +1,10 @@
+<div class="home">
+  <h2>Select Your Character</h2>
+  <div class="character-list">
+    <a *ngFor="let character of characters" 
+       [routerLink]="['/character', character.id]" 
+       class="character-link">
+      {{ character.name }}
+    </a>
+  </div>
+</div> 
