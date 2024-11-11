@@ -1,6 +1,20 @@
 <div class="character-sheet">
   <ng-container *ngIf="character$ | async as character">
     <h2>{{ character.name }}</h2>
+    
+    <div class="hp-tracker">
+      <h3>Hit Points</h3>
+      <div class="hp-controls">
+        <button (click)="adjustHp(character, -1)">-</button>
+        <div class="hp-display">
+          <span>{{ character.currentHp }}</span>
+          <span class="hp-separator">/</span>
+          <span>{{ character.maxHp }}</span>
+        </div>
+        <button (click)="adjustHp(character, 1)">+</button>
+      </div>
+    </div>
+
     <a routerLink="/" class="back-link">Back to Selection</a>
   </ng-container>
-</div> 
+</div>

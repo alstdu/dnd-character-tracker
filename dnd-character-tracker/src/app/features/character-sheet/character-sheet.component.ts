@@ -21,4 +21,9 @@ export class CharacterSheetComponent {
       map(id => CHARACTERS.find(char => char.id === id))
     );
   }
+
+  adjustHp(character: Character, amount: number): void {
+    const newHp = character.currentHp + amount;
+    character.currentHp = Math.min(Math.max(0, newHp), character.maxHp);
+  }
 }
