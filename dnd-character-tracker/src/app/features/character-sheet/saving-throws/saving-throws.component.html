@@ -1,0 +1,10 @@
+<div class="saving-throws">
+  <h3>Saving Throws</h3>
+  <div class="save" *ngFor="let save of saves">
+    <div class="save-proficient">
+      <span class="proficiency-marker">{{ save.proficient ? '●' : '○' }}</span>
+    </div>
+    <div class="save-modifier">{{ getSaveModifier(save.score, save.proficient) }}</div>
+    <div class="save-name">{{ save.name }}</div>
+  </div>
+</div>

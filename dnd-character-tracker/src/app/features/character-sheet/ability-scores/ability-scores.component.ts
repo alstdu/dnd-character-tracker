@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Character } from '../../../models/character.interface';
 
 @Component({
   selector: 'app-ability-scores',
@@ -9,26 +10,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './ability-scores.component.sass',
 })
 export class AbilityScoresComponent {
-  @Input() strength!: number;
-  @Input() dexterity!: number;
-  @Input() constitution!: number;
-  @Input() intelligence!: number;
-  @Input() wisdom!: number;
-  @Input() charisma!: number;
-
-  get abilities() {
-    return [
-      { name: 'Strength', score: this.strength },
-      { name: 'Dexterity', score: this.dexterity },
-      { name: 'Constitution', score: this.constitution },
-      { name: 'Intelligence', score: this.intelligence },
-      { name: 'Wisdom', score: this.wisdom },
-      { name: 'Charisma', score: this.charisma }
-    ];
-  }
+  @Input() character!: Character;
 
   getModifierString(score: number): string {
     const modifier = Math.floor((score - 10) / 2);
     return modifier >= 0 ? `+${modifier}` : `${modifier}`;
+  }
+
+  get abilityScores() {
+    return [
+      { name: 'Strength', score: this.character.strength },
+      { name: 'Dexterity', score: this.character.dexterity },
+      { name: 'Constitution', score: this.character.constitution },
+      { name: 'Intelligence', score: this.character.intelligence },
+      { name: 'Wisdom', score: this.character.wisdom },
+      { name: 'Charisma', score: this.character.charisma }
+    ];
   }
 }

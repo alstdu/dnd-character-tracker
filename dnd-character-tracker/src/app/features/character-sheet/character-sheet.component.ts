@@ -6,11 +6,19 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CHARACTERS, Character } from '../../models/character.interface';
 import { AbilityScoresComponent } from './ability-scores/ability-scores.component';
+import { SavingThrowsComponent } from './saving-throws/saving-throws.component';
+
 
 @Component({
   selector: 'app-character-sheet',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, AbilityScoresComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    AbilityScoresComponent,
+    SavingThrowsComponent
+  ],
   templateUrl: './character-sheet.component.html',
   styleUrl: './character-sheet.component.sass'
 })

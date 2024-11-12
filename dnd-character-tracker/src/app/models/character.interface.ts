@@ -13,6 +13,15 @@ export interface Character {
   intelligence: number;
   wisdom: number;
   charisma: number;
+  proficiencyBonus: number;
+  savingThrowProficiencies: {
+    strength: boolean;
+    dexterity: boolean;
+    constitution: boolean;
+    intelligence: boolean;
+    wisdom: boolean;
+    charisma: boolean;
+  };
 }
 
 export const CHARACTERS: Character[] = [
@@ -30,7 +39,16 @@ export const CHARACTERS: Character[] = [
     constitution: 14,
     intelligence: 12,
     wisdom: 14,
-    charisma: 18
+    charisma: 18,
+    proficiencyBonus: 3,
+    savingThrowProficiencies: {
+      strength: false,
+      dexterity: false,
+      constitution: false,
+      intelligence: false,
+      wisdom: true,
+      charisma: true
+    }
   },
   { 
     id: '2', 
@@ -46,6 +64,15 @@ export const CHARACTERS: Character[] = [
     constitution: 16,
     intelligence: 16,
     wisdom: 12,
-    charisma: 14
+    charisma: 14,
+    proficiencyBonus: 3,
+    savingThrowProficiencies: {
+      strength: false,
+      dexterity: false,
+      constitution: false,
+      intelligence: false,
+      wisdom: true,
+      charisma: true
+    }
   }
 ];
