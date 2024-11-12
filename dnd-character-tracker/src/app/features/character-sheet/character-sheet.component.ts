@@ -5,11 +5,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CHARACTERS, Character } from '../../models/character.interface';
+import { AbilityScoresComponent } from './ability-scores/ability-scores.component';
 
 @Component({
   selector: 'app-character-sheet',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, AbilityScoresComponent],
   templateUrl: './character-sheet.component.html',
   styleUrl: './character-sheet.component.sass'
 })

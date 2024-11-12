@@ -7,6 +7,12 @@ export interface Character {
   tempHp: number;
   aidLevel: number | null;
   ac: number;
+  strength: number;
+  dexterity: number;
+  constitution: number;
+  intelligence: number;
+  wisdom: number;
+  charisma: number;
 }
 
 export const CHARACTERS: Character[] = [
@@ -18,7 +24,13 @@ export const CHARACTERS: Character[] = [
     baseMaxHp: 38,
     tempHp: 0,
     aidLevel: null,
-    ac: 16 
+    ac: 16,
+    strength: 8,
+    dexterity: 12,
+    constitution: 14,
+    intelligence: 12,
+    wisdom: 14,
+    charisma: 18
   },
   { 
     id: '2', 
@@ -28,6 +40,12 @@ export const CHARACTERS: Character[] = [
     baseMaxHp: 45,
     tempHp: 0,
     aidLevel: null,
-    ac: 16 
+    ac: 16,
+    strength: 8,
+    dexterity: 14,
+    constitution: 16,
+    intelligence: 16,
+    wisdom: 12,
+    charisma: 14
   }
 ];

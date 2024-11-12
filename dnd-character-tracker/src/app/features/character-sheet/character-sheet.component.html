@@ -55,6 +55,15 @@
       <div class="ac-value">{{ character.ac }}</div>
     </div>
 
+    <app-ability-scores
+    [strength]="character.strength"
+    [dexterity]="character.dexterity"
+    [constitution]="character.constitution"
+    [intelligence]="character.intelligence"
+    [wisdom]="character.wisdom"
+    [charisma]="character.charisma"
+  ></app-ability-scores>
+
     <a routerLink="/" class="back-link">Back to Selection</a>
   </ng-container>
 </div>
