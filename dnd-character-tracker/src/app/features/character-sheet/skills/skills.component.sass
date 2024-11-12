@@ -1,0 +1,49 @@
+.skills
+  padding: 1rem
+  background: #f5f5f5
+  border-radius: 8px
+  margin: 1rem 0
+
+  h3
+    margin: 0 0 1rem 0
+    color: #2c3e50
+    font-size: 1.2rem
+
+  .skills-list
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
+    gap: 0.5rem
+
+    .skill
+      display: grid
+      grid-template-columns: auto auto 1fr
+      align-items: center
+      gap: 1rem
+      padding: 0.5rem
+      background: white
+      border-radius: 4px
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+
+      .skill-proficient
+        .proficiency-marker
+          font-size: 1.2rem
+          color: #2c3e50
+
+      .skill-modifier
+        font-weight: bold
+        color: #2c3e50
+        min-width: 2.5rem
+        text-align: center
+
+      .skill-name
+        color: #666
+        
+        .ability-label
+          color: #95a5a6
+          font-size: 0.8rem
+          margin-left: 0.5rem
+
+@media (max-width: 768px)
+  .skills
+    .skills-list
+      grid-template-columns: 1fr 

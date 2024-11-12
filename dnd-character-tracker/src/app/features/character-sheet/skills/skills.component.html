@@ -1,0 +1,15 @@
+<div class="skills">
+  <h3>Skills</h3>
+  <div class="skills-list">
+    <div class="skill" *ngFor="let skill of skills">
+      <div class="skill-proficient">
+        <span class="proficiency-marker">{{ isProficient(skill) ? '●' : '○' }}</span>
+      </div>
+      <div class="skill-modifier">{{ getSkillModifier(skill) }}</div>
+      <div class="skill-name">
+        {{ skill.name }}
+        <span class="ability-label">({{ skill.ability }})</span>
+      </div>
+    </div>
+  </div>
+</div> 

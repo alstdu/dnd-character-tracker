@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { CHARACTERS, Character } from '../../models/character.interface';
 import { AbilityScoresComponent } from './ability-scores/ability-scores.component';
 import { SavingThrowsComponent } from './saving-throws/saving-throws.component';
+import { SkillsComponent } from './skills/skills.component';
 
 
 @Component({
@@ -17,7 +18,8 @@ import { SavingThrowsComponent } from './saving-throws/saving-throws.component';
     RouterModule,
     FormsModule,
     AbilityScoresComponent,
-    SavingThrowsComponent
+    SavingThrowsComponent,
+    SkillsComponent
   ],
   templateUrl: './character-sheet.component.html',
   styleUrl: './character-sheet.component.sass'

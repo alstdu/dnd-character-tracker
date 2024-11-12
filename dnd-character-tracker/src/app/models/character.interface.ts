@@ -22,6 +22,26 @@ export interface Character {
     wisdom: boolean;
     charisma: boolean;
   };
+  skillProficiencies: {
+    acrobatics: boolean;
+    animalHandling: boolean;
+    arcana: boolean;
+    athletics: boolean;
+    deception: boolean;
+    history: boolean;
+    insight: boolean;
+    intimidation: boolean;
+    investigation: boolean;
+    medicine: boolean;
+    nature: boolean;
+    perception: boolean;
+    performance: boolean;
+    persuasion: boolean;
+    religion: boolean;
+    sleightOfHand: boolean;
+    stealth: boolean;
+    survival: boolean;
+  };
 }
 
 export const CHARACTERS: Character[] = [
@@ -48,11 +68,31 @@ export const CHARACTERS: Character[] = [
       intelligence: false,
       wisdom: true,
       charisma: true
+    },
+    skillProficiencies: {
+      acrobatics: false,
+      animalHandling: true,
+      arcana: false,
+      athletics: false,
+      deception: false,
+      history: false,
+      insight: false,
+      intimidation: false,
+      investigation: false,
+      medicine: false,
+      nature: true,
+      perception: false,
+      performance: false,
+      persuasion: true,
+      religion: false,
+      sleightOfHand: false,
+      stealth: false,
+      survival: true
     }
   },
   { 
     id: '2', 
-    name: 'Wilora', 
+    name: 'Willora', 
     currentHp: 45, 
     maxHp: 45, 
     baseMaxHp: 45,
@@ -60,11 +100,11 @@ export const CHARACTERS: Character[] = [
     aidLevel: null,
     ac: 16,
     strength: 8,
-    dexterity: 14,
-    constitution: 16,
-    intelligence: 16,
-    wisdom: 12,
-    charisma: 14,
+    dexterity: 12,
+    constitution: 14,
+    intelligence: 12,
+    wisdom: 14,
+    charisma: 18,
     proficiencyBonus: 3,
     savingThrowProficiencies: {
       strength: false,
@@ -73,6 +113,26 @@ export const CHARACTERS: Character[] = [
       intelligence: false,
       wisdom: true,
       charisma: true
+    },
+    skillProficiencies: {
+      acrobatics: false,
+      animalHandling: true,
+      arcana: false,
+      athletics: false,
+      deception: false,
+      history: false,
+      insight: false,
+      intimidation: false,
+      investigation: false,
+      medicine: false,
+      nature: true,
+      perception: false,
+      performance: false,
+      persuasion: true,
+      religion: false,
+      sleightOfHand: false,
+      stealth: false,
+      survival: true
     }
   }
 ];

@@ -24,7 +24,26 @@ export class SavingThrowsComponent {
         score: this.character.dexterity, 
         proficient: this.character.savingThrowProficiencies.dexterity 
       },
-      // ... repeat for other abilities
+      { 
+        name: 'Constitution', 
+        score: this.character.constitution, 
+        proficient: this.character.savingThrowProficiencies.constitution 
+      },
+      { 
+        name: 'Intelligence', 
+        score: this.character.intelligence, 
+        proficient: this.character.savingThrowProficiencies.intelligence 
+      },
+      { 
+        name: 'Wisdom', 
+        score: this.character.wisdom, 
+        proficient: this.character.savingThrowProficiencies.wisdom 
+      },
+      { 
+        name: 'Charisma', 
+        score: this.character.charisma, 
+        proficient: this.character.savingThrowProficiencies.charisma 
+      }
     ];
   }
 
