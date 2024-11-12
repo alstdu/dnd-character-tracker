@@ -3,15 +3,50 @@
     <h2>{{ character.name }}</h2>
     
     <div class="hp-tracker">
-      <h3>Hit Points</h3>
-      <div class="hp-controls">
-        <button (click)="adjustHp(character, -1)">-</button>
-        <div class="hp-display">
-          <span>{{ character.currentHp }}</span>
-          <span class="hp-separator">/</span>
-          <span>{{ character.maxHp }}</span>
+      <div *ngIf="character.tempHp > 0" class="temp-hp">
+        {{ character.tempHp }} temp HP
+      </div>
+
+      <div class="hp-display">
+        <span>{{ character.currentHp }}</span>
+        <span class="hp-separator">/</span>
+        <span>{{ character.maxHp }}</span>
+        <span *ngIf="character.aidLevel" class="aid-bonus">
+          ({{ character.baseMaxHp }} + Aid[{{ getAidBonus(character.aidLevel) }}])
+        </span>
+      </div>
+
+      <div class="hp-inputs">
+        <div class="input-group">
+          <input type="number" [(ngModel)]="damageAmount" placeholder="Damage">
+          <button (click)="applyDamage(character, damageAmount)" [disabled]="!damageAmount">
+            Apply Damage
+          </button>
         </div>
-        <button (click)="adjustHp(character, 1)">+</button>
+
+        <div class="input-group">
+          <input type="number" [(ngModel)]="healAmount" placeholder="Healing">
+          <button (click)="applyHealing(character, healAmount)" [disabled]="!healAmount">
+            Heal
+          </button>
+        </div>
+
+        <div class="input-group">
+          <input type="number" [(ngModel)]="tempHpAmount" placeholder="Temp HP">
+          <button (click)="setTempHp(character, tempHpAmount)" [disabled]="!tempHpAmount">
+            Set Temp HP
+          </button>
+        </div>
+      </div>
+
+      <div class="aid-controls">
+        <select [ngModel]="character.aidLevel" 
+                (ngModelChange)="applyAid(character, $event)">
+          <option [ngValue]="null">No Aid</option>
+          <option *ngFor="let level of spellLevels" [ngValue]="level">
+            Level {{ level }} (+{{ getAidBonus(level) }})
+          </option>
+        </select>
       </div>
     </div>
 
