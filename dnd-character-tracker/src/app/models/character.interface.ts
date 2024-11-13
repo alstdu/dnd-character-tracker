@@ -14,6 +14,8 @@ export interface Character {
   wisdom: number;
   charisma: number;
   proficiencyBonus: number;
+  spellSaveDC?: number;
+  spellAttackModifier?: number;
   savingThrowProficiencies: {
     strength: boolean;
     dexterity: boolean;
@@ -61,6 +63,8 @@ export const CHARACTERS: Character[] = [
     wisdom: 14,
     charisma: 18,
     proficiencyBonus: 3,
+    spellSaveDC: 16,
+    spellAttackModifier: 8,
     savingThrowProficiencies: {
       strength: false,
       dexterity: false,
@@ -106,6 +110,8 @@ export const CHARACTERS: Character[] = [
     wisdom: 14,
     charisma: 18,
     proficiencyBonus: 3,
+    spellSaveDC: 15,
+    spellAttackModifier: 7,
     savingThrowProficiencies: {
       strength: false,
       dexterity: false,

@@ -50,9 +50,21 @@
       </div>
     </div>
 
-    <div class="ac-display">
-      <h3>Armor Class</h3>
-      <div class="ac-value">{{ character.ac }}</div>
+    <div class="combat-stats">
+      <div class="stat-display">
+        <h3>Armor Class</h3>
+        <div class="stat-value">{{ character.ac }}</div>
+      </div>
+      
+      <div class="stat-display" *ngIf="character.spellSaveDC">
+        <h3>Spell Save DC</h3>
+        <div class="stat-value">{{ character.spellSaveDC }}</div>
+      </div>
+      
+      <div class="stat-display" *ngIf="character.spellAttackModifier">
+        <h3>Spell Attack</h3>
+        <div class="stat-value">{{ getModifierString(character.spellAttackModifier) }}</div>
+      </div>
     </div>
 
     <app-ability-scores [character]="character"></app-ability-scores>

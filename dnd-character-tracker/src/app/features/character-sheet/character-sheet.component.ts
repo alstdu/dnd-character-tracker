@@ -93,4 +93,8 @@ export class CharacterSheetComponent {
   getAidBonus(level: number): number {
     return (level - 1) * 5;
   }
+
+  getModifierString(modifier: number): string {
+    return modifier >= 0 ? `+${modifier}` : `${modifier}`;
+  }
 }
