@@ -30,6 +30,7 @@ export class CharacterSheetComponent {
   healAmount: number = 0;
   tempHpAmount: number = 0;
   spellLevels = [2, 3, 4, 5, 6, 7, 8, 9];
+  showProficiencies = false;
 
   constructor(private route: ActivatedRoute) {
     this.character$ = this.route.paramMap.pipe(
@@ -96,5 +97,9 @@ export class CharacterSheetComponent {
 
   getModifierString(modifier: number): string {
     return modifier >= 0 ? `+${modifier}` : `${modifier}`;
+  }
+
+  toggleProficiencies(): void {
+    this.showProficiencies = !this.showProficiencies;
   }
 }

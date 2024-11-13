@@ -65,6 +65,36 @@
         <h3>Spell Attack</h3>
         <div class="stat-value">{{ getModifierString(character.spellAttackModifier) }}</div>
       </div>
+
+      <div class="stat-display proficiency-display" 
+           (click)="toggleProficiencies()" 
+           [class.active]="showProficiencies">
+        <h3>Proficiency</h3>
+        <div class="stat-value">+{{ character.proficiencyBonus }}</div>
+        
+        <div class="proficiencies-dropdown" *ngIf="showProficiencies">
+          <div class="proficiency-section" *ngIf="character.weaponProficiencies.length">
+            <h4>Weapon Proficiencies</h4>
+            <ul>
+              <li *ngFor="let weapon of character.weaponProficiencies">{{ weapon }}</li>
+            </ul>
+          </div>
+          
+          <div class="proficiency-section" *ngIf="character.toolProficiencies.length">
+            <h4>Tool Proficiencies</h4>
+            <ul>
+              <li *ngFor="let tool of character.toolProficiencies">{{ tool }}</li>
+            </ul>
+          </div>
+          
+          <div class="proficiency-section" *ngIf="character.languages.length">
+            <h4>Languages</h4>
+            <ul>
+              <li *ngFor="let language of character.languages">{{ language }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <app-ability-scores [character]="character"></app-ability-scores>

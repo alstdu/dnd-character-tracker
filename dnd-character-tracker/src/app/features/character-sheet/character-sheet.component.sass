@@ -138,6 +138,62 @@
       justify-content: center
       border: 2px solid #bdc3c7
 
+  .proficiency-display
+    position: relative
+    cursor: pointer
+    transition: transform 0.2s ease
+
+    &:hover
+      transform: scale(1.05)
+
+    &.active
+      background-color: #e8e8e8
+
+    .proficiencies-dropdown
+      position: absolute
+      top: 100%
+      left: 50%
+      transform: translateX(-50%)
+      margin-top: 1rem
+      background: white
+      border-radius: 8px
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+      padding: 1rem
+      min-width: 200px
+      z-index: 10
+
+      &:before
+        content: ''
+        position: absolute
+        top: -8px
+        left: 50%
+        transform: translateX(-50%)
+        border-left: 8px solid transparent
+        border-right: 8px solid transparent
+        border-bottom: 8px solid white
+
+      .proficiency-section
+        margin-bottom: 1rem
+
+        &:last-child
+          margin-bottom: 0
+
+        h4
+          color: #2c3e50
+          margin-bottom: 0.5rem
+          font-size: 0.9rem
+          font-weight: bold
+
+        ul
+          list-style: none
+          padding: 0
+          margin: 0
+
+          li
+            color: #666
+            font-size: 0.9rem
+            padding: 0.25rem 0
+
 @media (max-width: 480px)
   .combat-stats
     flex-direction: column

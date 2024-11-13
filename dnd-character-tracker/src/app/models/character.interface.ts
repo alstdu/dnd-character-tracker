@@ -44,6 +44,9 @@ export interface Character {
     stealth: boolean;
     survival: boolean;
   };
+  weaponProficiencies: string[];
+  toolProficiencies: string[];
+  languages: string[];
 }
 
 export const CHARACTERS: Character[] = [
@@ -92,7 +95,10 @@ export const CHARACTERS: Character[] = [
       sleightOfHand: false,
       stealth: false,
       survival: true
-    }
+    },
+    weaponProficiencies: ['Quarterstaff', 'Shortbow', 'Daggers', 'Spears', 'Longbows'],
+    toolProficiencies: ['Herbalism Kit'],
+    languages: ['Common', 'Sylvan', 'Elvish', 'Druidic', 'Beast Speak', 'Plant Speak'],
   },
   { 
     id: '2', 
@@ -139,6 +145,9 @@ export const CHARACTERS: Character[] = [
       sleightOfHand: false,
       stealth: false,
       survival: true
-    }
+    },
+    weaponProficiencies: ['Quarterstaff', 'Shortbow', 'Daggers', 'Spears', 'Longbows'],
+    toolProficiencies: ['Herbalism Kit'],
+    languages: ['Common', 'Sylvan', 'Elvish', 'Druidic', 'Beast Speak', 'Plant Speak'],
   }
 ];
