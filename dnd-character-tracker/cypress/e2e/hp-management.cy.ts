@@ -56,4 +56,45 @@ describe('HP Management', () => {
         cy.get('.hp-display').should('contain', '45/45')
         cy.get('.aid-bonus').should('not.exist')
       })
-  })
+
+    it('should not allow HP to go below 0', () => {
+        cy.get('input[placeholder="Damage"]').type('100')
+        cy.get('button').contains('Apply Damage').click()
+        cy.get('.hp-display').should('contain', '0/45')
+    })
+
+    it('should not allow healing beyond max HP', () => {
+        cy.get('input[placeholder="Healing"]').type('100')
+        cy.get('button').contains('Heal').click()
+        cy.get('.hp-display').should('contain', '45/45')
+    })
+
+    it('should handle decimal/floating point damage correctly', () => {
+        cy.get('input[placeholder="Damage"]').type('5.5')
+        cy.get('button').contains('Apply Damage').click()
+        cy.get('.hp-display').should('contain', '39/45')
+    })
+
+    it('should handle negative input values gracefully', () => {
+        cy.get('input[placeholder="Damage"]').type('-10')
+        cy.get('button').contains('Apply Damage').click()
+        cy.get('.hp-display').should('contain', '45/45') // Should not change HP
+    })
+
+    it('should handle temp HP and Aid interaction correctly', () => {
+        // Apply Aid first
+        cy.get('.aid-controls select').select('Level 2 (+5)')
+        // Add temp HP
+        cy.get('input[placeholder="Temp HP"]').type('10')
+        cy.get('button').contains('Set Temp HP').click()
+        // Verify both are showing
+        cy.get('.hp-display').should('contain', '50/50')
+        cy.get('.temp-hp').should('contain', '10 temp HP')
+        cy.get('.aid-bonus').should('contain', '45 + Aid[5]')
+        // Apply large damage to remove temp HP and some regular HP
+        cy.get('input[placeholder="Damage"]').type('15')
+        cy.get('button').contains('Apply Damage').click()
+        cy.get('.temp-hp').should('not.exist')
+        cy.get('.hp-display').should('contain', '45/50')
+    })
+})

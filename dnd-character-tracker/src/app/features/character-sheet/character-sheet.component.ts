@@ -8,7 +8,7 @@ import { CHARACTERS, Character } from '../../models/character.interface';
 import { AbilityScoresComponent } from './ability-scores/ability-scores.component';
 import { SavingThrowsComponent } from './saving-throws/saving-throws.component';
 import { SkillsComponent } from './skills/skills.component';
-
+import { HPManagementService } from './hp-management/hp-management.service';
 
 @Component({
   selector: 'app-character-sheet',
@@ -32,7 +32,10 @@ export class CharacterSheetComponent {
   spellLevels = [2, 3, 4, 5, 6, 7, 8, 9];
   showProficiencies = false;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private hpService: HPManagementService
+  ) {
     this.character$ = this.route.paramMap.pipe(
       map(params => params.get('id')),
       map(id => CHARACTERS.find(char => char.id === id))
@@ -40,55 +43,22 @@ export class CharacterSheetComponent {
   }
 
   applyDamage(character: Character, amount: number): void {
-    if (amount <= 0) return;
-    
-    // First reduce temp HP
-    if (character.tempHp > 0) {
-      if (character.tempHp >= amount) {
-        character.tempHp -= amount;
-        amount = 0;
-      } else {
-        amount -= character.tempHp;
-        character.tempHp = 0;
-      }
-    }
-
-    // Then reduce regular HP
-    if (amount > 0) {
-      character.currentHp = Math.max(0, character.currentHp - amount);
-    }
-    
+    this.hpService.applyDamage(character, amount);
     this.damageAmount = 0;
   }
 
   applyHealing(character: Character, amount: number): void {
-    if (amount <= 0) return;
-    character.currentHp = Math.min(character.maxHp, character.currentHp + amount);
+    this.hpService.applyHealing(character, amount);
     this.healAmount = 0;
   }
 
   setTempHp(character: Character, amount: number): void {
-    if (amount <= 0) return;
-    character.tempHp = Math.max(character.tempHp, amount);
+    this.hpService.setTempHp(character, amount);
     this.tempHpAmount = 0;
   }
 
   applyAid(character: Character, level: number | null): void {
-    // Remove old aid bonus
-    if (character.aidLevel) {
-      const oldBonus = this.getAidBonus(character.aidLevel);
-      character.maxHp = character.baseMaxHp;
-      // Only reduce current HP if it exceeds the new maximum
-      character.currentHp = Math.min(character.currentHp, character.maxHp);
-    }
-    
-    // Apply new aid bonus
-    character.aidLevel = level;
-    if (level) {
-      const bonus = this.getAidBonus(level);
-      character.maxHp = character.baseMaxHp + bonus;
-      character.currentHp += bonus;  // Aid increases both max AND current HP
-    }
+    this.hpService.applyAid(character, level);
   }
 
   getAidBonus(level: number): number {
