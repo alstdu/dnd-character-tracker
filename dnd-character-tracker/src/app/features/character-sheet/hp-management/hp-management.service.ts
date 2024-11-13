@@ -53,6 +53,6 @@ export class HPManagementService {
   }
 
   private getAidBonus(level: number): number {
-    return level * 5;
+    return (level - 1) * 5;
   }
 }
