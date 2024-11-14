@@ -9,6 +9,8 @@ import { AbilityScoresComponent } from './ability-scores/ability-scores.componen
 import { SavingThrowsComponent } from './saving-throws/saving-throws.component';
 import { SkillsComponent } from './skills/skills.component';
 import { HPManagementService } from './hp-management/hp-management.service';
+import { InventoryComponent } from './inventory/inventory.component';
+import { EquipmentComponent } from './equipment/equipment.component';
 
 @Component({
   selector: 'app-character-sheet',
@@ -19,7 +21,9 @@ import { HPManagementService } from './hp-management/hp-management.service';
     FormsModule,
     AbilityScoresComponent,
     SavingThrowsComponent,
-    SkillsComponent
+    SkillsComponent,
+    InventoryComponent,
+    EquipmentComponent
   ],
   templateUrl: './character-sheet.component.html',
   styleUrl: './character-sheet.component.sass'

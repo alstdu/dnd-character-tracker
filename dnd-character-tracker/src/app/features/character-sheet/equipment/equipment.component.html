@@ -1,0 +1,68 @@
+<div class="equipment">
+    <h3>Equipment</h3>
+    
+    <div class="equipment-slots">
+      <div class="equipment-slot">
+        <h4>Armor</h4>
+        <div class="slot-content" [class.empty]="!character.equipment.armor">
+          <div *ngIf="character.equipment.armor" class="item-details">
+            {{ character.equipment.armor.name }}
+            <div class="item-description" *ngIf="character.equipment.armor.description">
+              {{ character.equipment.armor.description }}
+            </div>
+          </div>
+          <div *ngIf="!character.equipment.armor" class="empty-slot">
+            No armor equipped
+          </div>
+        </div>
+      </div>
+  
+      <div class="equipment-slot">
+        <h4>Main Hand</h4>
+        <div class="slot-content" [class.empty]="!character.equipment.mainHand">
+          <div *ngIf="character.equipment.mainHand" class="item-details">
+            {{ character.equipment.mainHand.name }}
+            <div class="item-description" *ngIf="character.equipment.mainHand.description">
+              {{ character.equipment.mainHand.description }}
+            </div>
+          </div>
+          <div *ngIf="!character.equipment.mainHand" class="empty-slot">
+            Empty
+          </div>
+        </div>
+      </div>
+  
+      <div class="equipment-slot">
+        <h4>Off Hand</h4>
+        <div class="slot-content" [class.empty]="!character.equipment.offHand">
+          <div *ngIf="character.equipment.offHand" class="item-details">
+            {{ character.equipment.offHand.name }}
+            <div class="item-description" *ngIf="character.equipment.offHand.description">
+              {{ character.equipment.offHand.description }}
+            </div>
+          </div>
+          <div *ngIf="!character.equipment.offHand" class="empty-slot">
+            Empty
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="accessories">
+      <h4>Accessories</h4>
+      <div class="accessory-slots">
+        <div class="slot-content" *ngFor="let item of character.equipment.accessories"
+             [class.empty]="!item">
+          <div *ngIf="item" class="item-details">
+            {{ item.name }}
+            <div class="item-description" *ngIf="item.description">
+              {{ item.description }}
+            </div>
+          </div>
+          <div *ngIf="!item" class="empty-slot">
+            Empty slot
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

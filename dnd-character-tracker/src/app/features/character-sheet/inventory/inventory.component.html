@@ -1,0 +1,30 @@
+<div class="inventory">
+  <h3>Inventory</h3>
+  
+  <div class="currency">
+    <div class="coin gold">{{ character.gold }} GP</div>
+    <div class="coin silver">{{ character.silver }} SP</div>
+    <div class="coin copper">{{ character.copper }} CP</div>
+  </div>
+
+  <div class="inventory-list">
+    <div class="inventory-header">
+      <span class="item-name">Item</span>
+      <span class="item-quantity">Qty</span>
+      <span class="item-weight">Weight</span>
+      <span class="item-value">Value</span>
+    </div>
+
+    <div class="inventory-item" *ngFor="let item of character.inventory">
+      <div class="item-name" [title]="item.description">{{ item.name }}</div>
+      <div class="item-quantity">{{ item.quantity }}</div>
+      <div class="item-weight">{{ item.weight }} lb</div>
+      <div class="item-value" *ngIf="item.value">{{ item.value }} gp</div>
+    </div>
+  </div>
+
+  <div class="inventory-summary">
+    <div>Total Weight: {{ getTotalWeight() }} lb</div>
+    <div>Total Value: {{ getTotalValue() }} gp</div>
+  </div>
+</div>
