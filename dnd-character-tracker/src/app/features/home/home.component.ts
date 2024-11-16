@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CHARACTERS } from '../../models/character.interface';
+import { Character, CHARACTERS } from '../../models/character.interface';
+import { CharacterService } from '../../services/character.service';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,15 @@ import { CHARACTERS } from '../../models/character.interface';
   templateUrl: './home.component.html',
   styleUrl: './home.component.sass'
 })
-export class HomeComponent {
-  characters = CHARACTERS;
-} 
+export class HomeComponent implements OnInit {
+  // characters = CHARACTERS;
+  characters: Character[] = [];
+
+  constructor(private characterService: CharacterService) { }
+
+  ngOnInit(): void {
+    this.characterService.getCharacters().subscribe((characters) => {
+      this.characters = characters;
+    });
+  }
+}
