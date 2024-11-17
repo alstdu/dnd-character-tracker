@@ -18,6 +18,21 @@ const db = new sqlite3.Database('./database.sqlite', (err) => {
     }
 });
 
+// Add this utility function at the top
+function snakeToCamel(obj) {
+  if (!obj) return obj;
+  if (Array.isArray(obj)) {
+    return obj.map(v => snakeToCamel(v));
+  } else if (typeof obj === 'object') {
+    return Object.keys(obj).reduce((result, key) => {
+      const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+      result[camelKey] = snakeToCamel(obj[key]);
+      return result;
+    }, {});
+  }
+  return obj;
+}
+
 // Get all characters (simplified for list view)
 app.get('/api/characters', (req, res) => {
     db.all('SELECT id, name, current_hp, max_hp FROM characters', [], (err, rows) => {
@@ -25,7 +40,8 @@ app.get('/api/characters', (req, res) => {
             res.status(500).json({ error: err.message });
             return;
         }
-        res.json(rows);
+        const camelRows = snakeToCamel(rows);
+        res.json(camelRows);
     });
 });
 
@@ -60,7 +76,15 @@ app.get('/api/characters/:id', (req, res) => {
 
     const getItems = new Promise((resolve, reject) => {
         db.all(`
-            SELECT i.*, ci.quantity, ci.equipped, ci.slot
+            SELECT 
+                i.id,
+                i.name,
+                i.weight,
+                i.value,
+                i.description,
+                ci.quantity,
+                ci.equipped,
+                ci.slot
             FROM character_items ci
             JOIN items i ON ci.item_id = i.id
             WHERE ci.character_id = ?
@@ -70,27 +94,71 @@ app.get('/api/characters/:id', (req, res) => {
         });
     });
 
-    Promise.all([getCharacter, getSavingThrows, getSkills, getItems])
-        .then(([character, savingThrows, skills, items]) => {
-            // Format the response to match your interface
+    const getWeaponProficiencies = new Promise((resolve, reject) => {
+        db.all('SELECT proficiency FROM character_weapon_proficiencies WHERE character_id = ?',
+            [id], (err, rows) => {
+                if (err) reject(err);
+                else resolve(rows.map(row => row.proficiency));
+            });
+    });
+
+    const getToolProficiencies = new Promise((resolve, reject) => {
+        db.all('SELECT proficiency FROM character_tool_proficiencies WHERE character_id = ?',
+            [id], (err, rows) => {
+                if (err) reject(err);
+                else resolve(rows.map(row => row.proficiency));
+            });
+    });
+
+    const getLanguages = new Promise((resolve, reject) => {
+        db.all('SELECT language FROM character_languages WHERE character_id = ?',
+            [id], (err, rows) => {
+                if (err) reject(err);
+                else resolve(rows.map(row => row.language));
+            });
+    });
+
+    Promise.all([
+        getCharacter, 
+        getSavingThrows, 
+        getSkills, 
+        getItems,
+        getWeaponProficiencies,
+        getToolProficiencies,
+        getLanguages
+    ])
+        .then(([
+            character, 
+            savingThrows, 
+            skills, 
+            items,
+            weaponProficiencies,
+            toolProficiencies,
+            languages
+        ]) => {
             const response = {
-                ...character,
+                ...snakeToCamel(character),
                 savingThrowProficiencies: savingThrows.reduce((acc, curr) => ({
                     ...acc,
-                    [curr.ability]: curr.is_proficient
+                    [curr.ability]: Boolean(curr.is_proficient)
                 }), {}),
                 skillProficiencies: skills.reduce((acc, curr) => ({
                     ...acc,
-                    [curr.skill]: curr.is_proficient
+                    [snakeToCamel(curr.skill)]: Boolean(curr.is_proficient)
                 }), {}),
+                weaponProficiencies,
+                toolProficiencies,
+                languages,
                 equipment: {
-                    armor: items.find(i => i.slot === 'armor'),
-                    mainHand: items.find(i => i.slot === 'main_hand'),
-                    offHand: items.find(i => i.slot === 'off_hand'),
-                    accessories: items.filter(i => i.slot === 'accessory')
+                    armor: snakeToCamel(items.find(i => i.slot === 'armor')),
+                    mainHand: snakeToCamel(items.find(i => i.slot === 'main_hand')),
+                    offHand: snakeToCamel(items.find(i => i.slot === 'off_hand')),
+                    accessories: snakeToCamel(items.filter(i => i.slot === 'accessory'))
                 },
-                inventory: items.filter(i => i.slot === 'inventory')
+                inventory: snakeToCamel(items.filter(i => i.slot === 'inventory'))
             };
+            
+            response.id = response.id.toString();
             
             res.json(response);
         })

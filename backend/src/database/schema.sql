@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS characters (
     spell_attack_modifier INTEGER,
     gold INTEGER NOT NULL DEFAULT 0,
     silver INTEGER NOT NULL DEFAULT 0,
-    copper INTEGER NOT NULL DEFAULT 0
+    copper INTEGER NOT NULL DEFAULT 0,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS character_saving_throws (
@@ -38,7 +39,7 @@ CREATE TABLE IF NOT EXISTS character_skills (
         'performance', 'persuasion', 'religion', 'sleight_of_hand',
         'stealth', 'survival'
     )) NOT NULL,
-    is_proficient BOOLEAN NOT NULL DEFAULT FALSE,
+    is_proficient INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (character_id, skill),
     FOREIGN KEY (character_id) REFERENCES characters(id) ON DELETE CASCADE
 );
@@ -82,8 +83,13 @@ CREATE TABLE IF NOT EXISTS character_items (
     FOREIGN KEY (character_id) REFERENCES characters(id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES items(id)
 );
+
+CREATE INDEX idx_character_items_character_id ON character_items(character_id);
+CREATE INDEX idx_character_skills_character_id ON character_skills(character_id);
+
 CREATE TRIGGER IF NOT EXISTS update_character_timestamp 
 AFTER UPDATE ON characters
+FOR EACH ROW
 BEGIN
     UPDATE characters 
     SET updated_at = CURRENT_TIMESTAMP 

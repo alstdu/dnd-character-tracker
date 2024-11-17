@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { CHARACTERS, Character } from '../../models/character.interface';
+import { CharacterService } from '../../services/character.service';
 import { AbilityScoresComponent } from './ability-scores/ability-scores.component';
 import { SavingThrowsComponent } from './saving-throws/saving-throws.component';
 import { SkillsComponent } from './skills/skills.component';
@@ -38,11 +39,13 @@ export class CharacterSheetComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private hpService: HPManagementService
+    private hpService: HPManagementService,
+    private characterService: CharacterService
   ) {
     this.character$ = this.route.paramMap.pipe(
       map(params => params.get('id')),
-      map(id => CHARACTERS.find(char => char.id === id))
+      filter((id): id is string => id !== null),
+      switchMap(id => this.characterService.getCharacter(id))
     );
   }
 
