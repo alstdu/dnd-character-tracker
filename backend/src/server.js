@@ -33,13 +33,22 @@ function snakeToCamel(obj) {
   return obj;
 }
 
+function calculateMaxHp(baseMaxHp, aidLevel) {
+    // Aid is a 2nd level spell that gives +5 hp at level 2 and +5 more for each level thereafter
+    const aidBonus = aidLevel ? (aidLevel - 1) * 5 : 0;
+    return baseMaxHp + aidBonus;
+}
+
 // Get all characters (simplified for list view)
 app.get('/api/characters', (req, res) => {
-    db.all('SELECT id, name, current_hp, max_hp FROM characters', [], (err, rows) => {
+    db.all('SELECT id, name, current_hp, base_max_hp, aid_level FROM characters', [], (err, rows) => {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
         }
+        rows.forEach(row => {
+            row.maxHp = calculateMaxHp(row.base_max_hp, row.aid_level);
+        });
         const camelRows = snakeToCamel(rows);
         res.json(camelRows);
     });
@@ -138,6 +147,7 @@ app.get('/api/characters/:id', (req, res) => {
         ]) => {
             const response = {
                 ...snakeToCamel(character),
+                maxHp: calculateMaxHp(character.base_max_hp, character.aid_level),
                 savingThrowProficiencies: savingThrows.reduce((acc, curr) => ({
                     ...acc,
                     [curr.ability]: Boolean(curr.is_proficient)
@@ -169,6 +179,25 @@ app.get('/api/characters/:id', (req, res) => {
                 res.status(500).json({ error: err.message });
             }
         });
+});
+
+app.patch('/api/characters/:id/hp', (req, res) => {
+    const id = req.params.id;
+    const { currentHp, tempHp, aidLevel } = req.body;
+
+    db.run(
+        `UPDATE characters 
+         SET current_hp = ?, temp_hp = ?, aid_level = ?
+         WHERE id = ?`,
+        [currentHp, tempHp, aidLevel, id],
+        function(err) {
+            if (err) {
+                res.status(500).json({ error: err.message });
+                return;
+            }
+            res.json({ currentHp, tempHp, aidLevel });
+        }
+    );
 });
 
 app.listen(port, () => {

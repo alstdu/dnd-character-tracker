@@ -50,22 +50,30 @@ export class CharacterSheetComponent {
   }
 
   applyDamage(character: Character, amount: number): void {
-    this.hpService.applyDamage(character, amount);
-    this.damageAmount = 0;
+    this.hpService.applyDamage(character, amount).subscribe(updatedCharacter => {
+      this.character$ = this.characterService.getCharacter(character.id);
+      this.damageAmount = 0;
+    });
   }
 
   applyHealing(character: Character, amount: number): void {
-    this.hpService.applyHealing(character, amount);
-    this.healAmount = 0;
+    this.hpService.applyHealing(character, amount).subscribe(updatedCharacter => {
+      this.character$ = this.characterService.getCharacter(character.id);
+      this.healAmount = 0;
+    });
   }
 
   setTempHp(character: Character, amount: number): void {
-    this.hpService.setTempHp(character, amount);
-    this.tempHpAmount = 0;
+    this.hpService.setTempHp(character, amount).subscribe(updatedCharacter => {
+      this.character$ = this.characterService.getCharacter(character.id);
+      this.tempHpAmount = 0;
+    });
   }
 
   applyAid(character: Character, level: number | null): void {
-    this.hpService.applyAid(character, level);
+    this.hpService.applyAid(character, level).subscribe(updatedCharacter => {
+      this.character$ = this.characterService.getCharacter(character.id);
+    });
   }
 
   getAidBonus(level: number): number {

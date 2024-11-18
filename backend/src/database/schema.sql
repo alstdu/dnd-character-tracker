@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS characters (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     current_hp INTEGER NOT NULL,
-    max_hp INTEGER NOT NULL,
+    -- max_hp INTEGER NOT NULL, -- removed this because it can be calculated from base_max_hp + aid_level * 5
     base_max_hp INTEGER NOT NULL,
     temp_hp INTEGER NOT NULL DEFAULT 0,
     aid_level INTEGER,

@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "init-db": "node src/database/init-db.js",
     "seed-db": "node src/database/seed-db.js"
   },
@@ -17,5 +18,8 @@
     "express": "^4.21.1",
     "sqlite3": "^5.1.7"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
 }
