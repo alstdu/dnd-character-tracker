@@ -14,6 +14,7 @@
     gap: 1rem
     justify-content: center
     margin-bottom: 1rem
+    flex-wrap: wrap
 
     .coin
       padding: 0.5rem 1rem
@@ -40,7 +41,7 @@
 
     .inventory-header
       display: grid
-      grid-template-columns: 2fr 0.5fr 0.5fr 0.5fr
+      grid-template-columns: 2fr 0.7fr
       padding: 0.5rem
       background: #2c3e50
       color: white
@@ -49,7 +50,7 @@
 
     .inventory-item
       display: grid
-      grid-template-columns: 2fr 0.5fr 0.5fr 0.5fr
+      grid-template-columns: 2fr 0.7fr
       padding: 0.5rem
       border-bottom: 1px solid #eee
       align-items: center
@@ -72,3 +73,13 @@
     color: white
     border-radius: 4px
     font-weight: bold
+
+  .inventory-list
+    .inventory-item, .inventory-header
+      @media (max-width: 530px)
+        grid-template-columns: 2fr 0.7fr
+        gap: 0.5rem
+        
+        > *:nth-child(3),
+        > *:nth-child(4)
+          display: none
